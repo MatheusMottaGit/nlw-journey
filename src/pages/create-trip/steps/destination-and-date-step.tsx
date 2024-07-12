@@ -3,6 +3,7 @@ import Button from "../../../components/button";
 import { useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 import { format } from "date-fns";
+import "react-day-picker/dist/style.css";
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean;
@@ -13,14 +14,7 @@ interface DestinationAndDateStepProps {
   setSelectedDateRange: (dates: DateRange | undefined) => void
 }
 
-function DestinationAndDateStep({
-  closeGuestsInput,
-  isGuestsInputOpen,
-  openGuestsInput,
-  selectedDateRange,
-  setDestination,
-  setSelectedDateRange
-}: DestinationAndDateStepProps) {
+function DestinationAndDateStep({ closeGuestsInput, isGuestsInputOpen, openGuestsInput, selectedDateRange, setDestination, setSelectedDateRange }: DestinationAndDateStepProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   function openDatePicker() {

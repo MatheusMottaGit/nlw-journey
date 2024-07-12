@@ -1,31 +1,19 @@
 import { CircleCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../utils/api";
+import { format } from "date-fns";
+import { ptBR } from 'date-fns/locale'
+import { Activity, TripActivitiesApiResponse } from "../../types/activity";
 
 interface ActivitiesProps {
   tripId?: string;
 }
 
-interface TripActivitiesApiResponse {
-  activities: Activity[];
-}
-
-type Activity = {
-  date: string;
-  activities: {
-    id: string, 
-    title: string, 
-    occurs_at: string
-  }[]
-};
-
 export function Activities({ tripId }: ActivitiesProps) {
   const [activities, setActivities] = useState<Activity[]>([]);
 
   async function getTripActivities() {
-    const response = await api.get<TripActivitiesApiResponse>(
-      `/trips/${tripId}/activities`
-    );
+    const response = await api.get<TripActivitiesApiResponse>(`/trips/${tripId}/activities`);
     setActivities(response.data.activities);
   }
 
@@ -40,9 +28,9 @@ export function Activities({ tripId }: ActivitiesProps) {
           <div key={act.date} className="space-y-2.5">
             <div className="flex gap-2 items-baseline">
               <span className="text-xl text-zinc-300 font-semibold">
-                {act.date}
+                Dia {format(act.date, "d")}
               </span>
-              <span className="text-xs text-zinc-500">Domingo</span>
+              <span className="text-xs text-zinc-500">{format(act.date, "EEEE", { locale: ptBR })}</span>
             </div>
 
             {act.activities.length > 0 ? (

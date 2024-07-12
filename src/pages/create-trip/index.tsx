@@ -8,10 +8,7 @@ import InviteGuestsStep from "./steps/invite-guests-step";
 import { DateRange } from "react-day-picker";
 import { api } from "../../utils/api";
 import { toast, Toaster } from "sonner";
-
-type CreateTripApiResponse = {
-  tripId: string
-}
+import { CreateTripApiResponse } from "../../types/trip";
 
 function CreateTripPage() {
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
@@ -29,18 +26,9 @@ function CreateTripPage() {
     event.preventDefault()
 
     if(!selectedDateRange?.from || !selectedDateRange?.to) return
-
-    // console.log({
-    //   destination: destination,
-    //   starts_at: selectedDateRange.from,
-    //   ends_at: selectedDateRange.to,
-    //   emails_to_invite: emailsToInvite,
-    //   owner_name: ownerName,
-    //   owner_email: ownerEmail
-    // })
       
     const newTripData = {
-      destination: destination,
+      destination,
       starts_at: selectedDateRange.from,
       ends_at: selectedDateRange.to,
       emails_to_invite: emailsToInvite,
